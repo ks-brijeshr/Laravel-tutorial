@@ -1,4 +1,7 @@
 <x-layout>
+    <x-slot:heading>
+        Home Page
+    </x-slot:heading>
     <!-- Content of the Home page that was moved to layout.blade.php -->
-    <h1>contact</h1>
+    <h1>hello from contact</h1>
 </x-layout>
