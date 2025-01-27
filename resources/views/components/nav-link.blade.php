@@ -1,4 +1,4 @@
-{{-- @ is the blade directives like @if @forloop @switch --}}
+{{-- @ is the blade directives like @if @forloop @switch and  props menas properties we can use and change parent component properties in child comp --}}
 @props(['active' => true, 'type'=> 'a'])
 
 {{-- @if ($type === 'a')
