@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
+use App\Models\Job;
+
 
 Route::get('/', function () {
     return view('home', [ //we can pass second paramter or and argument is array in view 
@@ -15,41 +17,8 @@ Route::get('/jobs', function () {
     //return ["foo" => "bar"]; //return array
 
     return view('jobs', [
-
-
-        'jobs' => [
-            [
-                'id' => 1,
-                'title' => 'CEO',
-                'salary' => '500000',
-                'dskd' => '5564',
-            ],
-            [
-                'id' => 2,
-                'title' => 'CTO',
-                'salary' => '250000',
-
-            ],
-            [
-                'id' => 3,
-                'title' => 'Programmer',
-                'salary' => '200000',
-            ],
-            [
-                'id' => 4,
-                'title' => 'abc',
-                'salary' => '100000',
-                'dsds' => 'sdsd'
-
-            ],
-            [
-                'id' => 5,
-                'title' => 'dsbhdjhb',
-                'salary' => '121112',
-            ],
-
-        ]
-    ]); // return view page
+        'jobs' => job::all()
+    ]);
 
     //acces the each elemtn and add dynamically and print data dynamically
     // $jobs = [
@@ -90,25 +59,9 @@ Route::get('/jobs', function () {
 
 //{id} is an wild card variable useful when defining routes that are flexible and can handle multiple different inputs.
 Route::get('/jobs/{id}', function ($id) {
-    $jobs = [
-        [
-            'id' => 1,
-            'title' => 'CEO',
-            'salary' => '500000',
-        ],
-        [
-            'id' => 2,
-            'title' => 'CTO',
-            'salary' => '250000',
-        ],
-        [
-            'id' => 3,
-            'title' => 'Programmer',
-            'salary' => '200000',
-        ]
-    ];
 
-    $job = Arr::first($jobs, fn($job) => $job['id'] == $id);
+    // $job = Arr::first(Job::all(), fn($job) => $job['id'] == $id);
+    $job = Job::find($id); //find method in Job class perfom same op as upper line
     // dd($job);
     return view('job', ['job' => $job]);
 });
