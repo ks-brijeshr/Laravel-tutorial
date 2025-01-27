@@ -14,7 +14,7 @@ class Job
                 'id' => 1,
                 'title' => 'CEO',
                 'salary' => '500000',
-                'dskd' => '5564',
+
             ],
             [
                 'id' => 2,
@@ -26,18 +26,6 @@ class Job
                 'id' => 3,
                 'title' => 'Programmer',
                 'salary' => '200000',
-            ],
-            [
-                'id' => 4,
-                'title' => 'abc',
-                'salary' => '100000',
-                'dsds' => 'sdsd'
-
-            ],
-            [
-                'id' => 5,
-                'title' => 'dsbhdjhb',
-                'salary' => '121112',
             ],
 
         ];
