@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_listings', function (Blueprint $table) {
-            $table->id();
+            $table->id(); //id method within migration its creating a big integer column
+            // so when we generates the foreign keys is identical so thats why uisng unsignedBigInteger
+            //$table->unsignedBigInteger('employer_id'); 
+            $table->foreignIdFor(\App\Models\Employer::class); //The foreignId method is an alias for unsignedBigInteger
             $table->string('title');
             $table->string('salary');
             $table->timestamps();
