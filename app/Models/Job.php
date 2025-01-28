@@ -2,43 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
 
 
-class Job
+
+class Job extends Model
 {
-    public static function all(): array //explicitly telling what type of data is return by then functio
-    {
-        return [
-            [
-                'id' => 1,
-                'title' => 'CEO',
-                'salary' => '500000',
+    //when we need unique table name then we can add protected propetrty and perticular table name 
+    protected $table = 'job_listings';
 
-            ],
-            [
-                'id' => 2,
-                'title' => 'CTO',
-                'salary' => '250000',
-
-            ],
-            [
-                'id' => 3,
-                'title' => 'Programmer',
-                'salary' => '200000',
-            ],
-
-        ];
-    }
-    public static function find(int $id): array //jo return type na lakhyu hoy ane koi aevi id acccess kariye je data ma ke array ma nathi to alag error avi sake
-    {
-        //static::all() and Job::all() both are same 
-        //The static keyword is used to define class properties and methods that belong to the class itself
-        $job = Arr::first(static::all(), fn($job) => $job['id'] == $id);
-
-        if (! $job) {
-            abort(404);
-        }
-        return $job;
-    }
+    //The fillable property is used inside the model. It takes care of defining which fields are to be considered when the user will insert or update data.
+    protected $fillable = ['title', 'salary'];
 }
