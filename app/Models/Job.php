@@ -23,4 +23,9 @@ class Job extends Model
 
         return $this->belongsTo(Employer::class); //Job belongs to Employer 
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
