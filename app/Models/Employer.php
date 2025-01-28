@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employer extends Model
 {
-    /** @use HasFactory<\Database\Factories\EmployerFactory> */
+
     use HasFactory;
+    // public function jobs()
+    // {
+    //     return $this->hasMany(Job::class); 
+    // }
+
+    public function jobs()
+    {
+        //we can say Employer haseMany Jobs
+        return $this->hasMany(Job::class); //hasMany means from where our foreign key and all the local keys are came from 
+    }
 }
