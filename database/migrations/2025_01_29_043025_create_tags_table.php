@@ -16,11 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
         Schema::create('job_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Job::class, 'job_listings_id')->constrained()->cascadeOnDelete(); //handle Job Id column and prepare job Id foreign key 
-            $table->foreignIdFor(\App\Models\Tag::class)->constrained()->cascadeOnDelete(); //cascadeOndelete:- jyare koi pan redord delete karye tyare i want to delete and cascade the pivot record
+            $table->foreignIdFor(\App\Models\Job::class, 'job_listing_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Tag::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
