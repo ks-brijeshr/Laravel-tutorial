@@ -27,7 +27,7 @@
                 {{ $key + 1 }} . <br>
                 <div class="font-bold text-blue-500">{{ $value->employer->name }}</div>
                 <div>
-                    {{ 'title :-' . $value['title'] }} :Pays . <br>
+                    {{ 'title :-' . $value['title'] }}. <br> Pays
                     {{ 'salary :-' . $value['salary'] }}
                     Peryear . <br>
                 </div>

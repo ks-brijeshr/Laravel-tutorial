@@ -16,7 +16,9 @@ class Job extends Model
     protected $table = 'job_listings';
 
     //The fillable property is used inside the model. It takes care of defining which fields are to be considered when the user will insert or update data.
-    protected $fillable = ['title', 'salary'];
+    // protected $fillable = ['employer_id', 'title', 'salary'];
+
+    protected $guarded = [];
 
     public function employer()
     { //Job ma Employer banavu pade if i have a Job and i need information about Employer then the method will be called employer here

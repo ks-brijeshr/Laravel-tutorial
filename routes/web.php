@@ -16,9 +16,11 @@ Route::get('/jobs', function () {
     // return 'hello from about';//return string
     //return ["foo" => "bar"]; //return array
 
-    //('employer') is relation or function in Job class
-    $jobs = Job::with('employer')->cursorPaginate(3); //get() is same as select * so if we have 100000 of records then increase the load thats why we use paginate() for pagination
-    return view('jobs', [
+    //eager loading is solution of lazy loading 
+    //lazyloading(::all()):- when we  have 100 records then this will run 101 query[1 query for fetch all records + 1 query per job to job records]
+    //eagerloading(::with('employer')->get()):- retrieving all related models in single query [1 query for get all jobs and 1 query for all the employee associated with the jobs] reducing the total number of queries
+    $jobs = Job::with('employer')->latest()->cursorPaginate(3); //get() is same as select * so if we have 100000 of records then increase the load thats why we use paginate() for pagination
+    return view('jobs/index', [
         'jobs' => $jobs
     ]);
 
@@ -58,6 +60,10 @@ Route::get('/jobs', function () {
 
 });
 
+Route::get('/jobs/create', function () {
+    return view('jobs/create');
+});
+
 
 //{id} is an wild card variable useful when defining routes that are flexible and can handle multiple different inputs.
 Route::get('/jobs/{id}', function ($id) {
@@ -65,9 +71,23 @@ Route::get('/jobs/{id}', function ($id) {
     // $job = Arr::first(Job::all(), fn($job) => $job['id'] == $id);
     $job = Job::find($id); //find method in Job class perfom same op as upper line
     // dd($job);
-    return view('job', ['job' => $job]);
+    return view('job/show', ['job' => $job]);
 });
 
 Route::get('/contact', function () {
     return view('contact');
+});
+
+
+Route::post('/jobs', function () {
+    //using request() helper function we can get the all data from the form
+    // dd(request());
+
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1 //errro through karse km ke Job model na fillable ma employer_id nathi ae add akrvi padse
+    ]);
+
+    return redirect('/jobs');
 });
