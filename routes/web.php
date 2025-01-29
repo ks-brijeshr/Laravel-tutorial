@@ -17,7 +17,7 @@ Route::get('/jobs', function () {
     //return ["foo" => "bar"]; //return array
 
     //('employer') is relation or function in Job class
-    $jobs = job::with('employer')->get(); //get() is same as select * 
+    $jobs = Job::with('employer')->cursorPaginate(3); //get() is same as select * so if we have 100000 of records then increase the load thats why we use paginate() for pagination
     return view('jobs', [
         'jobs' => $jobs
     ]);
