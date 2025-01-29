@@ -34,6 +34,11 @@
             </a>
         @endforeach
 
+        <div>
+            {{-- links() is use for pagination --}}
+            {{ $jobs->links() }}
+        </div>
+
     </div>
 
 </x-layout>
