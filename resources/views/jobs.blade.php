@@ -21,17 +21,19 @@
     </ul> --}}
 
 
-    <ul>
+    <div class="space-y-4">
         @foreach ($jobs as $key => $value)
-            <li>
-                <a href="/jobs/{{ $value['id'] }}" class="text-blue-500 hover:underline">
-                    {{ $key + 1 }} . <br> {{ 'title :-' . $value['title'] }} :Pays . <br>
+            <a href="/jobs/{{ $value['id'] }}" class="block px-4 py-6 border border-gray-200 rounded-lg">
+                {{ $key + 1 }} . <br>
+                <div class="font-bold text-blue-500">{{ $value->employer->name }}</div>
+                <div>
+                    {{ 'title :-' . $value['title'] }} :Pays . <br>
                     {{ 'salary :-' . $value['salary'] }}
                     Peryear . <br>
-                </a>
-            </li>
+                </div>
+            </a>
         @endforeach
 
-    </ul>
+    </div>
 
 </x-layout>
