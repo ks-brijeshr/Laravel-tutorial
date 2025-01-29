@@ -16,8 +16,10 @@ Route::get('/jobs', function () {
     // return 'hello from about';//return string
     //return ["foo" => "bar"]; //return array
 
+    //('employer') is relation or function in Job class
+    $jobs = job::with('employer')->get(); //get() is same as select * 
     return view('jobs', [
-        'jobs' => job::all()
+        'jobs' => $jobs
     ]);
 
     //acces the each elemtn and add dynamically and print data dynamically
