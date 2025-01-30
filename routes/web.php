@@ -12,6 +12,7 @@ Route::get('/', function () {
     ]);
 });
 
+//index:- display all jobs
 Route::get('/jobs', function () {
     // return 'hello from about';//return string
     //return ["foo" => "bar"]; //return array
@@ -60,28 +61,36 @@ Route::get('/jobs', function () {
 
 });
 
+
+//create job
 Route::get('/jobs/create', function () {
     return view('jobs/create');
 });
 
 
+//show perticular job 
 //{id} is an wild card variable useful when defining routes that are flexible and can handle multiple different inputs.
 Route::get('/jobs/{id}', function ($id) {
 
     // $job = Arr::first(Job::all(), fn($job) => $job['id'] == $id);
     $job = Job::find($id); //find method in Job class perfom same op as upper line
     // dd($job);
-    return view('job/show', ['job' => $job]);
-});
 
-Route::get('/contact', function () {
-    return view('contact');
+    return view('jobs/show', ['job' => $job]);
 });
 
 
+
+//create new job (store)
 Route::post('/jobs', function () {
     //using request() helper function we can get the all data from the form
     // dd(request());
+
+    //validation:- validate() provide array of attribute and perform validation to it
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required']
+    ]);
 
     Job::create([
         'title' => request('title'),
@@ -90,4 +99,52 @@ Route::post('/jobs', function () {
     ]);
 
     return redirect('/jobs');
+});
+
+
+//edit
+Route::get('/jobs/{id}/edit', function ($id) {
+
+    $job = Job::find($id); //find method in Job 
+
+    return view('jobs/edit', ['job' => $job]);
+});
+
+//update
+Route::patch('/jobs/{id}', function ($id) {
+    //validate
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required']
+    ]);
+    //authorize(on hold...)
+
+    //update the page
+    $job = Job::findOrFail($id);
+
+    $job->update([
+        'title' => request('title'),
+        'salary' => request('salary')
+    ]);
+
+    //redirect to the job page
+
+    return redirect('/jobs/' . $job->id);
+});
+
+
+//delete
+Route::delete('/jobs/{id}', function ($id) {
+    //authorize(on hold...)
+
+    //delete  the job
+    $job = Job::findOrFail($id);
+    $job->delete();
+    //redirect
+    return redirect('/jobs');
+});
+
+
+Route::get('/contact', function () {
+    return view('contact');
 });
