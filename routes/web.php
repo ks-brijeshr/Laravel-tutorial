@@ -6,7 +6,7 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 use App\Models\Job;
-
+use Illuminate\Auth\Events\Logout;
 
 Route::view('/', 'home');
 
@@ -49,9 +49,7 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
-
-
-
+Route::post('/logout', [SessionController::class, 'destroy']);
 
 
 
