@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company() // ane pan aek unique id hase ane ae id Jobfactory ma apeli hase unique id tarike je foreign key hase
+            'name' => fake()->company(), // ane pan aek unique id hase ane ae id Jobfactory ma apeli hase unique id tarike je foreign key hase
+            'user_id' => User::factory() //reference user factory for this
         ];
     }
 }

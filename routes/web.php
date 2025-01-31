@@ -40,14 +40,23 @@ Route::view('/contact', 'contact');
 
 //badha routes ni jagya ae Route:;resource lakhisu to pan badha j routs JobController class mathi load thase
 //'jobs' is an reasource or URI name
-Route::resource('jobs', JobController::class);
+// Route::resource('jobs', JobController::class);
 
+
+Route::get('/jobs', [JobController::class, 'index']);
+Route::get('/jobs/create', [JobController::class, 'create']);
+Route::post('/jobs', [JobController::class, 'store'])->middleware('auth'); //means you have to be signed in
+Route::get('/jobs/{job}', [JobController::class, 'show']);
+// middleware('auth') means you have to be signed in and can() means you need to permission to edit the job
+Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->middleware('auth')->can('edit', 'job');
+Route::patch('/jobs/{job}', [JobController::class, 'update']);
+Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
-Route::get('/login', [SessionController::class, 'create']);
+Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
