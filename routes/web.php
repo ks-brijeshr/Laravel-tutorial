@@ -52,6 +52,7 @@ Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->middleware('auth
 Route::patch('/jobs/{job}', [JobController::class, 'update']);
 Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
 
+//auth
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 

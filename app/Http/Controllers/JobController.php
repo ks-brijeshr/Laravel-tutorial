@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -57,7 +57,7 @@ class JobController extends Controller
         //     return redirect('/login');
         // }
 
-        // //je user ae job create kari hoy tej edit  kari sake
+        //je user ae job create kari hoy tej edit  kari sake
         // if ($job->employer->user->isNot(Auth::user())) {
         //     abort(403);
         // }
@@ -67,14 +67,15 @@ class JobController extends Controller
 
     public function update(Job $job)
     {
+        //authorize
+        // Gate::authorize('edit-job', $job);
         //validate
         request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
         ]);
 
-        //authorize(on hold...)
-        Gate::authorize('edit-job', $job);
+
         //update the page
         $job->update([
             'title' => request('title'),
@@ -89,7 +90,7 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         //authorize(on hold...)
-        Gate::authorize('edit-job', $job);
+        // Gate::authorize('edit-job', $job);
 
         //delete  the job
         $job->delete();
