@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\SessionController;
+use App\Jobs\TranslateJob;
 use App\Mail\JobPosted;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
@@ -47,12 +48,11 @@ Route::view('/contact', 'contact');
 
 
 
-// Route::get('test', function () {
-//     Mail::to('brijesh@gmail.com')->send(
-//         new JobPosted()
-//     );
-//     return 'done';
-// });
+Route::get('test', function () {
+    $job = Job::first();
+    TranslateJob::dispatch($job);
+    return 'done';
+});
 
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/create', [JobController::class, 'create']);
