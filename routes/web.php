@@ -3,10 +3,12 @@
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\SessionController;
+use App\Mail\JobPosted;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 use App\Models\Job;
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Support\Facades\Mail;
 
 Route::view('/', 'home');
 
@@ -42,6 +44,15 @@ Route::view('/contact', 'contact');
 //'jobs' is an reasource or URI name
 // Route::resource('jobs', JobController::class);
 
+
+
+
+// Route::get('test', function () {
+//     Mail::to('brijesh@gmail.com')->send(
+//         new JobPosted()
+//     );
+//     return 'done';
+// });
 
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/create', [JobController::class, 'create']);
